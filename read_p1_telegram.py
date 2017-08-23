@@ -35,12 +35,15 @@ def handler(signum, frame):
     raise OSError("No proper DSMR P1 telegram recieved.")
 
 def read_DSMR_telegram():
+    global ser
     global telegram
+    global signal
+    global handler
+
     #Open COM port
-    try:
-    	ser.open()
-    except:
-        sys.exit ("Coul not open serial '%s'. Aaaaarch."  % ser.name)
+    ser.open()
+#    except:
+#        sys.exit ("Coul not open serial '%s'. Aaaaarch."  % ser.name)
     
 	# Set the signal handler and a 15-second alarm
     signal.signal(signal.SIGALRM, handler)
@@ -71,16 +74,20 @@ def read_DSMR_telegram():
     signal.alarm(0)          # Disable the alarm
 
 try:
-	read_DSMR_telegram()
+    read_DSMR_telegram()
 except:
     print ("Increased baudrate to 115200, retrying serial")    
+#    try:
     try:
-	ser.baudrate = 115200
-    	ser.parity=serial.PARITY_NONE
-    	ser.bytesize=serial.EIGHTBITS
-    	read_DSMR_telegram()
+	ser.close()
     except:
-    	print("115200 also failed")
+	print("could not close serial")
+    ser.baudrate = 115200
+    ser.parity=serial.PARITY_NONE
+    ser.bytesize=serial.EIGHTBITS
+    read_DSMR_telegram()
+#    except:
+#    	print("115200 also failed")
 
 text_file = open("logs/lastP1read.txt", "w")
 text_file.write(telegram)
