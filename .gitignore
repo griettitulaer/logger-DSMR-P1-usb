@@ -1,6 +1,7 @@
-# ignore user db
+# ignore user db's ecept example.db
 *.db
 !example.db
 
 # ignore log files
-/logs
+logs/lastP1read.txt
+logs
