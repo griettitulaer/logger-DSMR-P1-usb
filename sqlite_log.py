@@ -11,16 +11,23 @@ except:
 
 # Create table (if not database dous not exist)
 if os.path.isfile(db):
-	print "Saving data to sqlite db: " + db
+	print ("Saving data to sqlite db: " + db)
         conn = sqlite3.connect(db)
         c = conn.cursor()
 else:
+	print("Creating sqlite db: " + db)
         conn = sqlite3.connect(db)
         c = conn.cursor()
 	c.execute('''CREATE TABLE loads (date datetime, lowtarif_demand real, hightarif_demand real, lowtarif_supply real, hightarif_supply real, demand_power real, supply_power real, gas_demand real)''')
 
-# Insert a row of data
-c.execute("INSERT INTO loads VALUES (datetime(),"+str(lowtarif_demand)+","+str(hightarif_demand)+","+str(lowtarif_supply)+","+str(hightarif_supply)+","+str(demand_power)+","+str(supply_power)+","+str(gas_demand)+")")
+try:
+	# Insert a row of data
+	c.execute("INSERT INTO loads VALUES (datetime(),"+str(lowtarif_demand)+","+str(hightarif_demand)+","+str(lowtarif_supply)+","+str(hightarif_supply)+","+str(demand_power)+","+str(supply_power)+","+str(gas_demand)+")")
+except:
+        print("INSERT INTO loads VALUES (datetime(),"+str(lowtarif_demand)+","+str(hightarif_demand)+","+str(lowtarif_supply)+","+str(hightarif_supply)+","+str(demand_power)+","+str(supply_power)+",0.0);")
+
+        c.execute("INSERT INTO loads VALUES (datetime(),"+str(lowtarif_demand)+","+str(hightarif_demand)+","+str(lowtarif_supply)+","+str(hightarif_supply)+","+str(demand_power)+","+str(supply_power)+",0.0);")
+
 
 # Save (commit) the changes and close db
 conn.commit()
