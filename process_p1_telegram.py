@@ -34,7 +34,7 @@ for m in x:
     print ("serial_number '"+serial_number+"'")
 
 # the regular expression to find DSMR power and energy electricity meter readings
-reg_expression = "([1-2]\.[7-8]\.[0-2])\(([0-9]*\.[0-9]*)\*(kW[h]?)\)"
+reg_expression = ":([0-9]?[1-2]\.[7-8]\.[0-2])\(([0-9]*\.[0-9]*)\*(kW[h]?)\)"
 
 # search and loop results
 x=re.finditer(reg_expression, telegram)  # Match
@@ -61,6 +61,24 @@ for m in x:
     elif m.group(1) == "2.7.0":
         supply_power = float(m.group(2))*1000
         print("supply_power", supply_power,"W")
+    elif m.group(1) == "21.7.0":
+        demand_power_L1 = float(m.group(2))*1000
+        print("demand_power_L1", demand_power_L1,"W")
+    elif m.group(1) == "41.7.0":
+        demand_power_L2 = float(m.group(2))*1000
+        print("demand_power_L2", demand_power_L2,"W")
+    elif m.group(1) == "61.7.0":
+        demand_power_L3 = float(m.group(2))*1000
+        print("demand_power_L3", demand_power_L3,"W")
+    elif m.group(1) == "22.7.0":
+        supply_power_L1 = float(m.group(2))*1000
+        print("supply_power_L1", supply_power_L1,"W")
+    elif m.group(1) == "42.7.0":
+        supply_power_L2 = float(m.group(2))*1000
+        print("supply_power_L2", supply_power_L2,"W")
+    elif m.group(1) == "62.7.0":
+        supply_power_L3 = float(m.group(2))*1000
+        print("supply_power_L3", supply_power_L3,"W")
 
 # the regular expression to find DSMR gas meter readings
 reg_expression = "(24\.3\.0).*\((m3)\)\n*\(([0-9]*\.[0-9]*)\)"
