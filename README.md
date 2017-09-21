@@ -8,14 +8,14 @@ To install the p1 USB reader run the following commands in your terminal:
 ```
 mkdir disaggregation
 cd disaggregation
-git clone https://github.com/disaggregation/DSMR-P1-usb-logger
+git clone https://github.com/disaggregation/logger-DSMR-P1-usb
 ```
 
 To run the script after each reboot:
 ```crontab -e```
 
 Add this line to the crontab file:
- ```@reboot /usr/bin/python /path/to/loggers/usb_p1_logger/schedule_p1_reader.py 2>&1```
+ ```@reboot /usr/bin/python /path/to/disaggregation/logger-DSMR-P1-usb/schedule_p1_reader.py 2>&1```
  
 The file will launch the scheduler at reboot and record data every 10 seconds, which leads to about 1Mb per day. Make sure you have enough space..
 
