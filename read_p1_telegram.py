@@ -14,10 +14,13 @@ print ("USB DSMR P1 telegram reader, version "+  version)
 print ("Control-C to exit")
 
 #Set COM port config
-ser = serial.Serial()
-ser.baudrate = 9600
-ser.bytesize=serial.SEVENBITS
-ser.parity=serial.PARITY_EVEN
+try:
+    ser
+except:
+    ser = serial.Serial()
+    ser.baudrate = 9600
+    ser.bytesize=serial.SEVENBITS
+    ser.parity=serial.PARITY_EVEN
 ser.stopbits=serial.STOPBITS_ONE
 ser.xonxoff=0
 ser.rtscts=0
@@ -85,9 +88,14 @@ except:
     ser.baudrate = 115200
     ser.parity=serial.PARITY_NONE
     ser.bytesize=serial.EIGHTBITS
-    read_DSMR_telegram()
-#    except:
-#    	print("115200 also failed")
+    try:
+    	read_DSMR_telegram()
+    except:
+    	print("115200 also faile, faling back to 9600")
+	ser.baudrate = 9600
+	ser.bytesize=serial.SEVENBITS
+	ser.parity=serial.PARITY_EVEN
+	
 
 text_file = open("logs/lastP1read.txt", "w")
 text_file.write(telegram)

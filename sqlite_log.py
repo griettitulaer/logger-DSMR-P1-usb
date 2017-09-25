@@ -33,7 +33,7 @@ except:
         	print("INSERT INTO loads VALUES (datetime(),"+str(lowtarif_demand)+","+str(hightarif_demand)+","+str(lowtarif_supply)+","+str(hightarif_supply)+","+str(demand_power)+","+str(supply_power)+",0.0,0.0,0.0,0.0,0.0,0.0,0.0);")
 
 
-        c.execute("INSERT INTO loads VALUES (datetime(),"+str(lowtarif_demand)+","+str(hightarif_demand)+","+str(lowtarif_supply)+","+str(hightarif_supply)+","+str(demand_power)+","+str(supply_power)+",0.0,0.0,0.0,0.0,0.0,0.0,0.0);")
+#        c.execute("INSERT INTO loads VALUES (datetime(),"+str(lowtarif_demand)+","+str(hightarif_demand)+","+str(lowtarif_supply)+","+str(hightarif_supply)+","+str(demand_power)+","+str(supply_power)+",0.0,0.0,0.0,0.0,0.0,0.0,0.0);")
 
 
 # Save (commit) the changes and close db
